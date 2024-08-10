@@ -1,6 +1,6 @@
 # Wheather-Check
 
-# Weather Dashboard
+
 
 A React-based weather application that allows users to search for weather information, view forecasts, and manage favorite cities.
 
