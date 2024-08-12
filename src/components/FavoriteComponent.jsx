@@ -6,13 +6,15 @@ import './WeatherDashboard';
 function FavoriteComponent({ favorites, setFavorites, setCity, currentCity }) {
   const [newFavorite, setNewFavorite] = useState('');
 
+  const API_BASE_URL = 'https://mock-api-86pr.onrender.com';
+
   useEffect(() => {
     fetchFavorites();
   }, []);
 
   const fetchFavorites = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/favorites');
+      const response = await axios.get(`${API_BASE_URL}/favorites`);
       setFavorites(response.data);
     } catch (error) {
       console.error('Error fetching favorites:', error);
@@ -24,7 +26,7 @@ function FavoriteComponent({ favorites, setFavorites, setCity, currentCity }) {
     const cityToAdd = newFavorite.trim() || currentCity;
     if (cityToAdd && !favorites.some(fav => fav.city.toLowerCase() === cityToAdd.toLowerCase())) {
       try {
-        await axios.post('http://localhost:3001/favorites', { city: cityToAdd });
+        await axios.post(`${API_BASE_URL}/favorites`, { city: cityToAdd });
         fetchFavorites();
         setNewFavorite('');
       } catch (error) {
@@ -35,7 +37,7 @@ function FavoriteComponent({ favorites, setFavorites, setCity, currentCity }) {
 
   const removeFavorite = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/favorites/${id}`);
+      await axios.delete(`${API_BASE_URL}/favorites/${id}`);
       fetchFavorites();
     } catch (error) {
       console.error('Error removing favorite:', error);
